@@ -1,0 +1,17 @@
+{
+  "Path": "android/app/build/outputs/apk/standaloneDebug/app-standaloneDebug.apk",
+  "Bytes": 164445412,
+  "SHA256": "4D0A4432410D804C8EE13DFA05069D977D56573C6D851A9CC42FB7D123E97361",
+  "LastWriteTimeUtc": "2026-09-14T16:11:29.0093353Z",
+  "BaseCommit": "d958f08c50531e97497809110605bff8b05e5c9d",
+  "UncommittedBuildInputs": [
+    "app.json",
+    "package.json",
+    "package-lock.json"
+  ],
+  "EmbeddedJavascriptBundle": "assets/index.android.bundle",
+  "EmbeddedJavascriptBundleBytes": 4361196,
+  "EmbeddedJavascriptBundleSHA256": "D23A6E6B0CC8B3975D8B0923ECCE705BD9FD1BCF88DB5BD9909A30BCC8AD09DE",
+  "BundleMatchesGeneratedHermes": true,
+  "DeviceExecution": "Not performed"
+}

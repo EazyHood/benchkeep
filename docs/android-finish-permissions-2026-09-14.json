@@ -1,0 +1,80 @@
+[
+  {
+    "Variant": "standalone",
+    "Manifest": "docs/android-finish-standalone-manifest-2026-09-14.xml",
+    "Permissions": [
+      {
+        "Name": "android.permission.INTERNET",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "android.permission.READ_EXTERNAL_STORAGE",
+        "MaxSdk": "32"
+      },
+      {
+        "Name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "MaxSdk": "32"
+      },
+      {
+        "Name": "android.permission.CAMERA",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.samsung.android.iap.permission.BILLING",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "android.permission.ACCESS_NETWORK_STATE",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.android.vending.BILLING",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.eazyhood.benchkeep.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "MaxSdk": ""
+      }
+    ],
+    "OverlayVibrationMicrophoneAbsent": true
+  },
+  {
+    "Variant": "release",
+    "Manifest": "docs/android-finish-release-manifest-2026-09-14.xml",
+    "Permissions": [
+      {
+        "Name": "android.permission.INTERNET",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "android.permission.READ_EXTERNAL_STORAGE",
+        "MaxSdk": "32"
+      },
+      {
+        "Name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "MaxSdk": "32"
+      },
+      {
+        "Name": "android.permission.CAMERA",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.samsung.android.iap.permission.BILLING",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "android.permission.ACCESS_NETWORK_STATE",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.android.vending.BILLING",
+        "MaxSdk": ""
+      },
+      {
+        "Name": "com.eazyhood.benchkeep.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "MaxSdk": ""
+      }
+    ],
+    "OverlayVibrationMicrophoneAbsent": true
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "checkedAtUTC": "2026-09-14T16:13:56.246Z",
+  "preludeFound": true,
+  "javascriptDevelopmentMode": true,
+  "nodeEnvDevelopment": true,
+  "sourceMapAppMatchesCurrentAppSource": true,
+  "normalizedAppSourceSHA256": "73ec88071691b9e274e3150b314c09b423b18a7028fcea7d1c8ddb5d059273de",
+  "nativeDebuggable": false,
+  "nativeDevSupportUsesBuildConfigDebug": true,
+  "androidUserInterfaceStyleLight": true,
+  "expoSystemUIInstalled": "57.0.4",
+  "nativePurchaseExecuted": false,
+  "deviceExecution": "Not performed"
+}

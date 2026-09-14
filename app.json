@@ -13,6 +13,10 @@
     "android": {
       "package": "com.eazyhood.benchkeep",
       "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.VIBRATE"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#F5F0E7",
         "foregroundImage": "./assets/benchkeep-adaptive-foreground.png",
@@ -27,6 +31,7 @@
       "name": "Benchkeep"
     },
     "plugins": [
+      "expo-system-ui",
       "expo-sharing",
       "expo-font",
       ["expo-image-picker", {"photosPermission": "Choose a photo of your piece to save your next point.", "cameraPermission": "Photograph your piece to keep the spot where you will continue.", "microphonePermission": false}]
