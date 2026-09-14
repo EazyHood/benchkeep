@@ -1,25 +1,35 @@
 {
   "expo": {
-    "name": "benchkeep",
+    "name": "Benchkeep",
     "slug": "benchkeep",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "orientation": "default",
+    "icon": "./assets/benchkeep-icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.eazyhood.benchkeep"
     },
     "android": {
+      "package": "com.eazyhood.benchkeep",
+      "allowBackup": false,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#F5F0E7",
+        "foregroundImage": "./assets/benchkeep-adaptive-foreground.png",
+        "monochromeImage": "./assets/benchkeep-adaptive-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/benchkeep-favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "name": "Benchkeep"
+    },
+    "plugins": [
+      "expo-sharing",
+      "expo-font",
+      ["expo-image-picker", {"photosPermission": "Choose a photo of your piece to save your next point.", "cameraPermission": "Photograph your piece to keep the spot where you will continue.", "microphonePermission": false}]
+    ]
   }
 }
