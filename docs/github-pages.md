@@ -1,12 +1,12 @@
 # GitHub Pages preview
 
-Prepared for `EazyHood/benchkeep`, with expected preview path `/benchkeep`. Preparing these files does not publish a repository or site.
+Published at [eazyhood.github.io/benchkeep](https://eazyhood.github.io/benchkeep/), from [EazyHood/benchkeep](https://github.com/EazyHood/benchkeep). GitHub Actions run `34803956262` completed both build and deployment successfully for application commit `c75a1a056c9f17496644e355c7fc597a84ebff5c`. The deployed preview was opened and its sample, point and focus interaction checked on 14 September 2026 UTC. This is a web preview, not a mobile store release.
 
 `app.config.js` starts from the existing `app.json`. It adds `experiments.baseUrl` only when `BENCHKEEP_WEB_BASE_URL=/benchkeep` is explicitly present. Native/prebuild and local development configuration otherwise remain unchanged.
 
 The workflow in `.github/workflows/pages.yml` runs on `main` pushes or manual dispatch. It installs the lockfile, checks TypeScript, runs tests, exports a production preview and uses GitHub's Pages artifact/deployment actions. Build permissions are read-only; the deployment job alone receives Pages and OIDC write permissions. Actions are pinned to verified release commit IDs.
 
-Before running the workflow, the repository owner must enable **Settings → Pages → Source: GitHub Actions**. No Pages, Expo or RevenueCat personal token is needed by this workflow. `.env.local` is neither committed nor loaded; Test Store configuration is excluded from the production export.
+The repository uses **Settings → Pages → Source: GitHub Actions**. No Pages, Expo or RevenueCat personal token is needed by this workflow. `.env.local` is neither committed nor loaded; Test Store configuration is excluded from the production export.
 
 For a local PowerShell validation without changing the dev/native configuration in other processes:
 
