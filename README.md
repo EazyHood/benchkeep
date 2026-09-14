@@ -2,6 +2,8 @@
 
 **A little pause. A place to return.**
 
+[Try the web preview](https://eazyhood.github.io/benchkeep/). The preview exercises the craft workflow; purchases are disabled there. It is not a mobile store release.
+
 Benchkeep keeps a visual bookmark in a craft project: a photo, a point on that photo, and the next move. Open the piece later, look closer at the point, and continue without searching through a camera roll and a separate note.
 
 Built for hobby work done in more than one sitting: embroidery, model making, collage and similar projects. This is a visual record of the maker’s own next step, not an instruction generator or a safety tool.

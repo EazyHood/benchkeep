@@ -1,0 +1,15 @@
+{
+  "scope": "Static build and artifact checks; no Android device execution",
+  "variant": "standaloneDebug",
+  "javascriptDevelopmentMode": true,
+  "javascriptModeEvidence": "Generated Metro source-map prelude contains __DEV__=true and NODE_ENV development",
+  "nativeDebuggable": false,
+  "nativeModeEvidence": "Generated app BuildConfig.DEBUG=false and MainApplication passes BuildConfig.DEBUG as useDevSupport",
+  "sourceMapAppMatchesCurrentAppSource": true,
+  "normalizedAppSourceSHA256": "73ec88071691b9e274e3150b314c09b423b18a7028fcea7d1c8ddb5d059273de",
+  "embeddedHermesBundle": "assets/index.android.bundle",
+  "embeddedHermesBundleSHA256": "d23a6e6b0cc8b3975d8b0923ecce705bd9fd1bcf88db5bd9909a30bcc8ad09de",
+  "apkBundleMatchesGeneratedHermesBundle": true,
+  "purchaseGuardsModified": false,
+  "nativePurchaseExecuted": false
+}

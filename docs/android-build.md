@@ -70,13 +70,41 @@ Prebuild warning: `expo-system-ui` is not installed, so the `userInterfaceStyle`
 
 ## Standalone sandbox variant
 
-An additional local `standaloneDebug` variant is being built to embed JavaScript while retaining the Test Store guard. The standard debug APK above remains available separately.
+An additional local `standaloneDebug` variant compiled successfully with embedded JavaScript while retaining the Test Store guard. The standard debug APK above remains available separately.
 
 The variant inherits `debug`, uses `matchingFallbacks=['debug']` and the template debug signer, and sets native `debuggable=false`. The React host is explicitly configured with `useDevSupport = BuildConfig.DEBUG`, so this variant loads its bundled asset rather than requesting Metro. JavaScript is separately compiled with **`devEnabled=true`**, preserving `__DEV__` and the application’s existing Test Store restrictions. The application’s purchase guard was not removed or weakened.
 
 The first attempt demonstrated why those flags must be distinguished: React Native's lazy task registration overwrote an early JS setting and produced a prelude with `__DEV__=false`. That attempt subsequently failed in Android lint due to insufficient Gradle Metaspace and produced no accepted standalone APK. The override now runs after all projects are evaluated; Gradle explicitly logged `JS devEnabled=true`. Project-local JVM limits were raised to a 3 GiB heap and 1 GiB Metaspace after that failure. No global SDK files or Windows settings were changed.
 
-Rebuild status: in progress. Native device behavior and native Test Store purchases remain untested.
+**Standalone build succeeded** in 2m 18s: 439 tasks, 62 executed and 377 up-to-date; the required Android lint tasks passed. Artifact: `android/app/build/outputs/apk/standaloneDebug/app-standaloneDebug.apk`, 164,444,808 bytes, created 2026-09-14 03:49 UTC. SHA-256:
+
+```text
+596a96ced8c6db1c338a05aa10c11bcc016fb2f7d1c86d01a5ac15cde6f224c3
+```
+
+The APK signature verified with the same standard Android Debug signer. `aapt` confirmed the expected package, SDK range and four architectures. ZIP inspection found `assets/index.android.bundle` (4,361,196 bytes); its SHA-256 matches the generated Hermes bundle. The generated Metro prelude was checked for `__DEV__=true` and `NODE_ENV development`, and the source-map copy of `App.tsx` matches the current source after line-ending normalization. See `android-standalone-mode-proof.json` for the static evidence.
+
+The standalone APK is configured to load its embedded bundle without Metro. Native device behavior and native Test Store purchases remain untested. It is a **sandbox artifact signed with a public development key**, never an app-store release or evidence of real revenue.
+
+## Reproduce the local sandbox build
+
+The native directory is generated and ignored by Git. The scripts below preserve the custom recipe outside it, without storing binaries or signing credentials in the repository.
+
+```powershell
+# From the repository root, after npm ci and configuring the documented Test Store environment:
+# Supply JAVA_HOME for JDK 21 and ANDROID_HOME for the Android SDK.
+$env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
+$env:CI = '1'
+$env:NODE_ENV = 'development'
+npx expo prebuild --platform android --no-clean --no-install --skip-dependency-update react,react-native
+node scripts/prepare-android-sandbox.cjs
+& ./scripts/setup-local-ninja.ps1
+Push-Location android
+.\gradlew.bat :app:assembleStandaloneDebug --console=plain --max-workers=2 --init-script windows-longpaths.init.gradle
+Pop-Location
+```
+
+`prepare-android-sandbox.cjs` targets Expo 57, applies the standalone variant, host setting and project-local Gradle memory limits, and recreates the local Ninja init script. `setup-local-ninja.ps1` downloads the pinned upstream Windows Ninja archive only when absent, verifies its published SHA-256, and sets `BENCHKEEP_NINJA` for the current PowerShell process. The recipe leaves the installed SDK's binaries unchanged. Both scripts were executed successfully against the generated project. The investigated temporary drive alias was removed.
 
 ## Evidence boundaries
 

@@ -8,6 +8,7 @@ Date: 14 September 2026 UTC / evening of 13 September in Colombia. Operator: Cod
 - Separate production web export, with independent browser storage: `http://localhost:8090`.
 - Windows / Edge. Responsive home layout checked at 393 CSS pixels, then viewport override reset.
 - These are browser observations. They do not establish native camera behavior, Android runtime, native store restoration, store availability, accessibility certification, or user-study results.
+- Public preview deployed from commit `c75a1a056c9f17496644e355c7fc597a84ebff5c` through [successful workflow 34803956262](https://github.com/EazyHood/benchkeep/actions/runs/34803956262). The [live page](https://eazyhood.github.io/benchkeep/) was opened and its sample image, fonts, pin and completed focus animation were observed after deployment.
 
 ## Observed results
 

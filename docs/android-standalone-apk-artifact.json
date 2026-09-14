@@ -1,0 +1,16 @@
+{
+  "Path": "android/app/build/outputs/apk/standaloneDebug/app-standaloneDebug.apk",
+  "Bytes": 164444808,
+  "SHA256": "596A96CED8C6DB1C338A05AA10C11BCC016FB2F7D1C86D01A5AC15CDE6F224C3",
+  "LastWriteTimeUtc": "2026-09-14T03:49:32.0114523Z",
+  "EmbeddedJavascriptBundle": [
+    {
+      "FullName": "assets/index.android.bundle",
+      "Length": 4361196
+    }
+  ],
+  "JavaScriptDevelopmentMode": true,
+  "NativeDebuggable": false,
+  "RevenueCatMode": "test-store",
+  "DeviceExecution": "Not performed"
+}
