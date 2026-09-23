@@ -37,6 +37,8 @@ See [RevenueCat setup](docs/revenuecat-setup.md) for the gateway configuration a
 
 Backups are not encrypted by Benchkeep. Keep them somewhere appropriate for their contents. Uninstalling the app or clearing browser storage can remove local work.
 
+**About & privacy → Privacy notice & support** contains the complete bundled notice, readable offline, and contact details. The equivalent static policy is included as `privacy.html` in web exports. The source files are `public/privacy.html` and its aligned bundled copy, `src/privacyContent.ts`; update both when the policy changes.
+
 ## Run locally
 
 Requires a supported Node LTS runtime. Development here used Node 24, Expo SDK 57, React Native 0.86 and React 19.2.3, selected from the current official Expo template. Expo-compatible native dependencies were installed using `expo install`; exact resolved versions are in `package-lock.json`.

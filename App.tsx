@@ -18,11 +18,12 @@ import { sampleProject } from './src/samples';
 import { colors, fonts } from './src/theme';
 import { Body, Button, Eyebrow, Icon, Pill } from './src/components/Primitives';
 import { PhotoBoard } from './src/components/PhotoBoard';
+import { PrivacyNotice } from './src/components/PrivacyNotice';
 import { useBenchkeepPurchases } from './src/purchases/useBenchkeepPurchases';
 import { styles } from './src/appStyles';
 
 const repository = new BenchRepository(AsyncStorage);
-type Screen = 'bench' | 'piece' | 'capture' | 'about';
+type Screen = 'bench' | 'piece' | 'capture' | 'about' | 'privacy';
 const dateLabel = (value: string) => new Date(value).toLocaleDateString('en', { month: 'short', day: 'numeric' });
 
 export default function App() {
@@ -55,6 +56,7 @@ function BenchApp() {
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
       if (purchaseOpen) { setPurchaseOpen(false); return true; }
+      if (screen === 'privacy') { setScreen('about'); return true; }
       if (screen !== 'bench') { setScreen('bench'); return true; } return false;
     }); return () => subscription.remove();
   }, [screen, purchaseOpen]);
@@ -181,7 +183,8 @@ function BenchApp() {
         <View style={styles.historyHeader}><Text style={styles.sectionTitle}>The trail so far</Text><Button variant="ghost" icon="download" onPress={() => shareNotes(project)}>Export notes</Button></View><View style={styles.timeline}>{[...project.checkpoints].reverse().map((c, i) => <View key={c.id} style={styles.timelineRow}><View style={styles.timelineDot} /><View style={{ flex: 1, gap: 5 }}><Eyebrow>POINT {String(project.checkpoints.length - i).padStart(2, '0')} · {dateLabel(c.createdAt)}</Eyebrow><Text style={styles.smallTitle}>{c.nextMove}</Text>{c.detail ? <Body style={{ fontSize: 13 }}>{c.detail}</Body> : null}</View>{i === 0 && <Pill green>Latest</Pill>}</View>)}</View>
       </>}
 
-      {screen === 'about' && <><Button variant="ghost" icon="back" onPress={() => setScreen('bench')} style={styles.back}>Your bench</Button><View style={{ maxWidth: 650, gap: 24 }}><Eyebrow>A LITTLE MORE ABOUT BENCHKEEP</Eyebrow><Heading title="For work worth returning to." subtitle="Making rarely happens in one sitting. Benchkeep keeps a visual bookmark in the piece you left on the table." /><Info title="Three small things" text="Save a photo, put a point on the spot, and write your next move. When you return, everything you need to start again is together." /><Info title="Yours, on this device" text="Photos and project notes are stored locally. No account is needed. Uninstalling the app or clearing browser data can remove them. A portable backup includes your photos and points. The smaller notes export contains text only. Keep a backup outside this device." /><Info title="A bench with room to grow" text="The free bench holds two active pieces. Finished pieces remain readable. Full bench is a one-time upgrade for more active pieces, when purchasing is available. RevenueCat manages purchase information; your project photos and text are not sent to it." /><Info title="About the example" text="The autumn leaves is a fictional sample. Its embroidery image was generated to demonstrate a saved point; it does not represent a user’s finished work." /><Body style={{ fontSize: 12 }}>Benchkeep · version 1.0.0</Body></View></>}
+      {screen === 'about' && <><Button variant="ghost" icon="back" onPress={() => setScreen('bench')} style={styles.back}>Your bench</Button><View style={{ maxWidth: 650, gap: 24 }}><Eyebrow>A LITTLE MORE ABOUT BENCHKEEP</Eyebrow><Heading title="For work worth returning to." subtitle="Making rarely happens in one sitting. Benchkeep keeps a visual bookmark in the piece you left on the table." /><Info title="Three small things" text="Save a photo, put a point on the spot, and write your next move. When you return, everything you need to start again is together." /><Info title="Yours, on this device" text="Photos and project notes are stored locally. No account is needed. Uninstalling the app or clearing browser data can remove them. A portable backup includes your photos and points. The smaller notes export contains text only. Keep a backup outside this device." /><Info title="A bench with room to grow" text="The free bench holds two active pieces. Finished pieces remain readable. Full bench is a one-time upgrade for more active pieces, when purchasing is available. RevenueCat manages purchase information; your project photos and text are not sent to it." /><Info title="About the example" text="The autumn leaves is a fictional sample. Its embroidery image was generated to demonstrate a saved point; it does not represent a user’s finished work." /><Button variant="secondary" onPress={() => setScreen('privacy')}>Privacy notice & support</Button><Body style={{ fontSize: 12 }}>Benchkeep · version 1.0.0</Body></View></>}
+      {screen === 'privacy' && <PrivacyNotice onBack={() => setScreen('about')} />}
       {screen === 'about' && <View style={{ maxWidth: 650, gap: 14, marginTop: 28, paddingTop: 24, borderTopWidth: 1, borderColor: colors.line }}><Text style={styles.sectionTitle}>Take your bench with you.</Text><Body>Save a portable backup with photos, notes and saved points. Backups are limited to 25 MiB and exclude the built-in sample.</Body><View style={[styles.row, { flexWrap: 'wrap' }]}><Button icon="download" onPress={exportBackup} disabled={backupBusy}>{backupBusy ? 'Preparing your backup…' : 'Export full backup'}</Button><Button variant="secondary" onPress={selectImport} disabled={backupBusy}>Import a backup</Button></View><Body style={{ fontSize: 12 }}>Importing replaces the bench on this device after you confirm. It does not restore purchases.</Body></View>}
     </View></ScrollView></KeyboardAvoidingView>
 
