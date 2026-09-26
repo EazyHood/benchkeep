@@ -26,11 +26,16 @@ update('app/build.gradle', text => {
         standaloneDebug {
             initWith debug
             matchingFallbacks = ['debug']
-            debuggable false
+            debuggable true
             signingConfig signingConfigs.debug
         }
 ${anchor}`);
   }
+  // RevenueCat deliberately rejects Test Store keys in non-debuggable APKs.
+  // Keep this a genuine development variant; disable Metro on the host instead.
+  const sandboxDebugFlag = /(standaloneDebug\s*\{[\s\S]*?\bdebuggable\s+)(?:true|false)/;
+  if (!sandboxDebugFlag.test(text)) throw new Error('Standalone debug flag not found. Review the Android template.');
+  text = text.replace(sandboxDebugFlag, '$1true');
   if (!text.includes("tasks.named('createBundleStandaloneDebugJsAndAssets')")) {
     text += `
 // Preserve the existing development-only Test Store guard in the embedded JS.
@@ -49,10 +54,15 @@ gradle.projectsEvaluated {
 
 const application = 'app/src/main/java/' + expo.android.package.replaceAll('.', '/') + '/MainApplication.kt';
 update(application, text => {
-  if (text.includes('useDevSupport = BuildConfig.DEBUG,')) return text;
+  const hostSetting = 'useDevSupport = BuildConfig.DEBUG && BuildConfig.BUILD_TYPE != "standaloneDebug",';
+  if (text.includes(hostSetting)) return text;
+  if (text.includes('useDevSupport = BuildConfig.DEBUG,')) {
+    return text.replace('useDevSupport = BuildConfig.DEBUG,', hostSetting);
+  }
+  if (text.includes('useDevSupport =')) throw new Error('Unexpected host DevSupport configuration; review manually.');
   const anchor = '      context = applicationContext,';
   if (!text.includes(anchor)) throw new Error('Expo React host template changed. Review native DevSupport manually.');
-  return text.replace(anchor, anchor + '\n      useDevSupport = BuildConfig.DEBUG,');
+  return text.replace(anchor, anchor + '\n      ' + hostSetting);
 });
 
 update('gradle.properties', text => {
@@ -80,5 +90,5 @@ gradle.allprojects { nativeProject ->
 }
 `);
 
-console.log('Prepared standaloneDebug: embedded development JS, native DevSupport off, template debug signer.');
+console.log('Prepared standaloneDebug: debuggable development APK, embedded development JS, Metro host off, template debug signer.');
 console.log('This sandbox variant is for local device testing and is not a store release.');

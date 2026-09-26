@@ -112,3 +112,15 @@ Pop-Location
 - A compiled debug APK is not a successful on-device test.
 - Debug builds normally load JavaScript from Metro; an APK file alone does not establish an offline, standalone distributable.
 - RevenueCat Test Store transactions are sandbox evidence, not store publication or real customer revenue.
+
+## Android execution follow-up — 26 September 2026
+
+The 23 September standalone artifact failed its first actual emulator cold start. Expo 57's `async-require/messageSocket.native.ts` assumes a development JavaScript bundle was loaded from Metro and throws for an embedded bundle. Here `__DEV__` intentionally remains true for the Test Store guard while native development-server support is off, so the bootstrap assumption does not hold. Successful compilation and matching source maps did not establish runtime success.
+
+`metro.config.js` now redirects that exact Android module through `scripts/runtime/expo-message-socket.cjs`. The adapter skips only the development-tools WebSocket when all three conditions hold: development JavaScript, explicit `test-store` configuration, and a bundle that was not loaded from a server. A normal Metro session calls Expo's original module. Release, other purchase modes, iOS and web retain their original paths. RevenueCat configuration, entitlement checks, error handling and the visible sandbox label are unchanged.
+
+The resolver uses Expo's [documented custom resolution mechanism](https://docs.expo.dev/guides/customizing-metro/#aliases). It deliberately targets an Expo 57 internal module, so review it on an SDK upgrade. The boundary tests verify runtime conditions, platform/path specificity and avoidance of recursive aliasing. `npm test` passed 27 tests and `npm run typecheck` passed after the change.
+
+The variant is now explicitly **`debuggable=true`**, as required by [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store#test-store-api-keys-in-release-builds). RevenueCat checks Android's debuggable flag and deliberately rejects Test Store keys in non-debuggable builds. No dangerous setting or SDK guard override is used. The host setting is now `useDevSupport = BuildConfig.DEBUG && BuildConfig.BUILD_TYPE != "standaloneDebug"`: normal debug retains Metro support, while the standalone development variant loads its bundled assets. The release build type is unchanged. This corrects the older recipe above; the resulting APK remains an explicitly labeled development sandbox, never a store release.
+
+The corrected standalone build and Android execution are validated separately; do not use the old artifact as a successful native demonstration.
