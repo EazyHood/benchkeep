@@ -28,6 +28,7 @@ Published source commit: [`227b2d75db31613107042ace40729b4b4ec4372c`](https://gi
 | APK/bundle hashes and source-map adapter | Recorded above; adapter source matches. |
 | Independent Android cold start of the final APK | Passed without Metro/ADB reverse; UI rendered, existing finished piece retained, no new crash. |
 | Independent photo/checkpoint workflow | Android picker import, point placement, title/next move/detail, save, focus/whole view and resume passed. The demonstration used a generated sample image, not customer data. |
+| Additional native walkthrough | A second checkpoint was saved, the two-entry trail was displayed, and the bundled About/privacy notice was opened. |
 | Independent offline restart | Airplane mode/Wi-Fi off, force-stop/relaunch: photo, point and next move remained readable despite the expected RevenueCat network error. |
 | Native RevenueCat offering/cancellation | $4.99 sandbox product loaded; cancelling the SDK modal kept access locked. |
 | Native valid Test Store purchase | SDK's valid purchase outcome unlocked Full bench. No payment was made. |
@@ -61,6 +62,8 @@ Eight purchase tests use test-only gateway responses and establish controller be
 Other automated cases cover image-relative point geometry, rejected letterbox taps, edge focus, checkpoint history, two-active-piece limits, serialized persistence, write errors, recovery from a corrupt primary record and portable backup validation/rollback. Existing pieces and exports remain accessible when premium access is unavailable. Samples are labeled and excluded from customer evidence. The MIT license file is present, retaining the Expo template copyright.
 
 RevenueCat's expected Test Store warning was preserved and could be dismissed in the development UI; it was not suppressed by code. No native camera capture, camera permission walkthrough, backup export/import or final-APK failed-purchase simulation was performed. Failure/pending behavior and third-piece capacity have automated evidence, with additional separately recorded browser checks; do not relabel these as final-APK native outcomes. There was no physical-device run, Google Play/Galaxy purchase, production store restoration, measured user benefit or real revenue. The demo and submission copy must preserve these boundaries.
+
+The AOSP emulator lacks Google Play Services. RevenueCat logged `SERVICE_INVALID` when its Block Store integration tried to save or recover the anonymous identity. The same-installation Test Store purchase, restore action and restart still passed. This does not establish reinstall or cross-device identity recovery. Original recordings and diagnostic logs were retained privately; visible development warnings were dismissed with their normal close control for later clean captures, not removed from images or suppressed in the app.
 
 ## Automated reproduction
 
