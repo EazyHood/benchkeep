@@ -1,6 +1,10 @@
 # Benchkeep — Next Gen submission package
 
-Updated 26 September 2026 against source commit `227b2d75db31613107042ace40729b4b4ec4372c` and the independently tested Android APK. This file contains current submission copy, **not a submission receipt**. The public video is still being finalized; add its verified URL before final submission.
+**Submitted to RevenueCat Shipaton 2026.** Devpost displayed its submission confirmation on 26 September 2026 at `16:57:42.938Z`. The entry uses source commit `227b2d75db31613107042ace40729b4b4ec4372c` and the independently tested Android APK below. The private submission receipt preserves the observed confirmation and captured page.
+
+- Submitted project: <https://devpost.com/software/benchkeep>
+- Public demo: <https://youtu.be/ykJ4I0GMk9Y> — *Benchkeep — Return to Your Craft | Shipaton 2026 Next Gen*, with published English subtitles.
+- Reviewed upload file: 94.021333 seconds, 1920 × 1080; SHA-256 `90e6918bc20b78363a47ab644158a11f27c71c322285edb7e0d707467c9596b3`.
 
 ## Category and reviewer access
 
@@ -10,12 +14,12 @@ Updated 26 September 2026 against source commit `227b2d75db31613107042ace40729b4
 - APK asset: `benchkeep-nextgen-sandbox-2026-09-26.apk`.
 - APK SHA-256: `9F16E220BAC060F7235774B49C6F84F0462E96EB3B2B44BFFC897C33D8985A5B`.
 - Supporting web preview: <https://eazyhood.github.io/benchkeep/> — craft workflow preview; production purchasing disabled.
-- Public YouTube/Vimeo video: **pending final upload and verification**.
+- Public YouTube video: <https://youtu.be/ykJ4I0GMk9Y>.
 - Student eligibility information belongs in Devpost's dedicated fields, not in the repository or media.
 
 The APK is a debug-signed Android development sandbox, Android 7 or later, with an embedded JavaScript bundle. No Metro server, Benchkeep account or payment details are required. Network access is needed for RevenueCat Test Store; saved craft work can be read offline. This download is not a Google Play or Galaxy Store release.
 
-Next Gen is the requested student category. Clear the prior Design Award request if the entry remains unpublished; the design decisions still belong in the main story. Do not populate store URLs, growth, revenue or customer fields with substitutes.
+Next Gen is the requested student category. The prior Design Award request was removed before submission; the design decisions remain in the main story. Store URLs, growth, revenue and customer claims were not substituted with sandbox or demonstration evidence.
 
 ## Devpost title and tagline
 
@@ -23,7 +27,7 @@ Next Gen is the requested student category. Clear the prior Design Award request
 
 **Tagline:** Save the spot, the photo and your next move. Return to an unfinished craft with a visual bookmark.
 
-## Devpost project story — ready to paste
+## Devpost project story
 
 ### Inspiration
 
@@ -71,11 +75,11 @@ The final native run did not cover camera capture, native backup export/import o
 
 The code and project materials were developed with AI assistance. The generated embroidery imagery is demonstration content, not a customer's work or evidence of adoption.
 
-## RevenueCat field — ready to paste
+## RevenueCat field
 
 Benchkeep uses RevenueCat for its one-time Full bench unlock. Two active craft pieces are free; additional active pieces require `benchkeep_plus`. The SDK supplies the Lifetime offering and displayed price. On the final Android 16 emulator run, the native SDK loaded the $4.99 sandbox product; cancellation kept access locked, a valid Test Store purchase unlocked Full bench, and restore plus restart retained access in the same installation. The app visibly labels this “Test purchase · no real charge.” There is no local premium flag, payment or real revenue. Pending/failure guards also have automated coverage; they were not replayed in the final native session. Production web purchasing is disabled.
 
-## Additional notes field — ready to paste
+## Additional notes field
 
 Next Gen entry with public MIT-licensed source and an Android judging APK: https://github.com/EazyHood/benchkeep/releases/tag/shipaton-nextgen-2026-09-26 . The release corresponds to source commit 227b2d75db31613107042ace40729b4b4ec4372c. It is a debug-signed development sandbox, not a store release. It runs without Metro and needs no Benchkeep account or payment details. The final APK was tested on an Android 16 emulator for the photo/checkpoint workflow, offline restart and actual RevenueCat Test Store cancellation, successful sandbox purchase, restore and restart. Native camera and backup export/import, physical devices and production store billing remain untested. The supporting web preview explores the craft workflow and has production purchases disabled. Student eligibility details are supplied separately through the form.
 
@@ -88,15 +92,15 @@ Next Gen entry with public MIT-licensed source and an Android judging APK: https
 | Thoughtful RevenueCat use | One-time capacity unlock, native SDK product/price, actual Test Store cancel/purchase/restore/restart. | No real-money revenue or production store restoration. |
 | Technical and product care | 27 passing tests, image-relative geometry, serialized persistence, validated backups and bundled privacy notice. | Native camera and backup transfer still need device checks. |
 
-## Remaining submission gates
+## Submission record
 
-- [ ] Verify the finished public YouTube/Vimeo video is under 120 seconds and contains actual Android footage with accurate emulator and sandbox labels.
-- [ ] Verify the exact uploaded icon is 1024 × 1024 and at least one actual app screenshot is 1179 × 2556 without a device frame.
-- [ ] Ensure text, source commit, APK, screenshot and video describe the same version.
-- [ ] Confirm Next Gen eligibility/repository fields and remove unsupported store-category claims.
-- [ ] Complete final submission and preserve the observed confirmation separately from this preparation file.
+Devpost confirmed the submitted project and included the public demo in its embedded player. The observed banner reads:
 
-The public repository, source commit, sandbox release and final native scope are now available. Academic eligibility remains subject to the organizer's determination; it is not established by these technical checks.
+> Project submitted! Continue to edit your project until the hackathon deadline: October 01, 2026 at 02:45am EDT.
+
+The video identifies Android emulator footage, generated demonstration imagery, static captures and RevenueCat Test Store transactions. The final local file passed metadata, subtitle, sampled-frame and full-decoding checks. Its sandbox restore claim is limited to the same installation. The submission links the matching public source and Android release and includes actual app screenshots. The embedded video was observed playing with captions enabled; this check did not repeat a full playback review.
+
+The submitted state confirms delivery, not an award or an organizer eligibility decision. Academic eligibility remains subject to the organizer's determination. Private eligibility details and the original confirmation captures are kept outside this repository.
 
 ## Evidence history and sources
 
@@ -106,4 +110,4 @@ The public repository, source commit, sandbox release and final native scope are
 - [Official Shipaton rules](https://revenuecat-shipaton-2026.devpost.com/rules), reviewed 26 September: student category, required materials and four judging criteria.
 - The earlier [capture plan](shipaton-capture-script-2026-09-23.md) is historical. Its store-listing ending must not be used; this entry links to its public source and sandbox release.
 
-Updating this copy did not create or publish a video, submit the Devpost form, add payment details or make a real-money purchase.
+The video was published and the Devpost form submitted after the entrant authorized those actions and accepted the applicable terms. No payment details or real-money purchases were used for the demonstration.
