@@ -8,6 +8,14 @@ Benchkeep keeps a visual bookmark in a craft project: a photo, a point on that p
 
 Built for hobby work done in more than one sitting: embroidery, model making, collage and similar projects. This is a visual record of the maker’s own next step, not an instruction generator or a safety tool.
 
+## Review the Android sandbox
+
+[Download the Android judging APK](https://github.com/EazyHood/benchkeep/releases/tag/shipaton-nextgen-2026-09-26), named `benchkeep-nextgen-sandbox-2026-09-26.apk`. The release includes the checksum. The source used for the demonstrated build is [`227b2d7`](https://github.com/EazyHood/benchkeep/commit/227b2d75db31613107042ace40729b4b4ec4372c). [Build instructions](docs/android-build.md) are available for reproducing it.
+
+The APK runs on Android 7 or later and includes its JavaScript bundle, so it needs no Metro server. It is a debug-signed development build configured for RevenueCat Test Store. No app account or payment details are needed. Internet access is needed for the sandbox purchase check; saved craft work remains readable offline.
+
+To review, create a piece from a photo, place a point and enter the next move, save it, then reopen it and use **Look closer**. Open **Full bench** to inspect the SDK price and its **Test purchase · no real charge** label. RevenueCat's **Test Store Purchase** sheet offers simulated outcomes. A valid test purchase unlocks Full bench; it is not a charge or store sale.
+
 ## The working flow
 
 1. Choose a photo or use the device camera.
@@ -51,15 +59,17 @@ npm test
 npm run export:web
 ```
 
-`npm run export:web` writes the standalone web preview to `dist/`. It is a preview/export target and does not replace an eligible mobile store listing. Native Android preparation/build notes live in [Android build](docs/android-build.md).
+`npm run export:web` writes the standalone web preview to `dist/`. The Next Gen entry uses public source and an Android demonstration; the web preview is supporting material. Native Android preparation/build notes live in [Android build](docs/android-build.md).
 
 Official framework references used: [Expo SDK 57](https://docs.expo.dev/versions/v57.0.0/), [ImagePicker](https://docs.expo.dev/versions/v57.0.0/sdk/imagepicker/), [ImageManipulator](https://docs.expo.dev/versions/v57.0.0/sdk/imagemanipulator/).
 
 ## Verification and practical limits
 
-The automated suite covers pin geometry under multiple image and viewport sizes, letterboxing, focus near edges, draft/checkpoint persistence, write failures, primary/backup recovery, free limits, purchase cancellation/concurrency and portable backup validation/rollback. These tests do not claim user adoption or measured time savings.
+On 26 September, **27 automated tests passed** and **TypeScript checking passed**. The suite covers pin geometry, letterboxing, edge focus, draft/checkpoint persistence, write failures, backup recovery, free limits, purchase-state handling, portable backup validation/rollback and the embedded development bootstrap. These tests do not claim user adoption or measured time savings.
 
-Browser walkthroughs additionally exercise photo import, point placement, checkpoint creation, resumption, completion, persistence after reload, RevenueCat Test Store outcomes and moving a backup to a fresh origin. Physical camera behavior, store-signed purchase restoration and actual store publication require device/store checks before claiming a production release.
+The final APK was exercised on an **Android 16 emulator** without Metro. The walkthrough verified photo-picker import, point placement, a saved checkpoint, focus and resume. A force-stop and restart with networking disabled preserved the photo, point and next move. Native RevenueCat Test Store checks loaded the $4.99 sandbox product, kept access locked after cancellation, unlocked after a valid sandbox purchase and retained access through the restore action and another restart. See [the QA record](docs/qa-nextgen-2026-09-26.md).
+
+Earlier browser QA also covered failure outcomes and moving a portable backup to a fresh origin. These are separately scoped results: the final native run did not exercise a failed purchase, native backup export/import or camera capture. No physical-device test, Google Play/Galaxy billing, production store restoration or app-store release is claimed.
 
 Known scope: there is no cloud sync, collaboration, automated capture or interpretation of what appears in a photo. The maker supplies the next move. The focus animation respects reduced-motion preferences. Four bundled font files provide DM Sans and DM Serif Display without a runtime font service.
 
@@ -75,4 +85,4 @@ Known scope: there is no cloud sync, collaboration, automated capture or interpr
 | `src/purchases/` | RevenueCat configuration, gateways, entitlement controller and tests |
 | `assets/` | Original app icon and clearly identified generated sample image |
 
-Internal dependency note: at this build, `npm audit` reports 11 moderate findings propagated through the Expo prebuild `xcode → uuid` toolchain, with no high or critical findings. The suggested automatic downgrade to an obsolete Expo major was not applied.
+Historical dependency note: the 14 September `npm audit` recorded 11 moderate findings through the Expo prebuild `xcode → uuid` toolchain and no high or critical findings. That audit was not rerun during the 26 September native walkthrough. The suggested automatic downgrade to an obsolete Expo major was not applied.

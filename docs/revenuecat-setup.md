@@ -7,8 +7,10 @@ The native app unlocks **Full bench** from RevenueCat entitlement `benchkeep_plu
 - Project `743c3f39` (Benchkeep) was configured through the authenticated RevenueCat dashboard.
 - Offering `default`, predefined package `$rc_lifetime`, product `benchkeep_full_lifetime` (internal `prod3b73959b40`) and entitlement `benchkeep_plus` are mapped and verified. The product title is “Full bench — lifetime unlock” and its **sandbox-only test price is USD 4.99**. The app retrieves the price from the SDK.
 - The Test Store public key is in ignored `.env.local`, with explicit development mode. No secret RevenueCat key or store-service credentials are used in client code.
-- Eight local unit tests pass. They use a test-only gateway and make **no RevenueCat calls or purchases**. They establish application behavior, not a completed store integration test.
-- The [browser QA session](qa-session-2026-09-14.md) completed official Web SDK Test Store cancellation, failure, valid purchase, access refresh and reload. A valid purchase enabled a third project and was corroborated in the RevenueCat sandbox dashboard. Native device tests, native store restoration, real-money transactions and public store release remain unverified.
+- The full suite passed **27 tests** and TypeScript checking on 26 September. Eight purchase tests use a test-only gateway and make **no RevenueCat calls or purchases**. They establish application behavior; actual integration outcomes are listed separately below.
+- The final Android APK was exercised on an **Android 16 emulator** without Metro: SDK offering/price loading, cancellation remaining locked, a valid Test Store purchase unlocking Full bench, the native restore action retaining access, and access after an app restart. The native restore result concerns the same sandbox installation; it does not establish a Google Play/Galaxy store purchase or cross-device restoration. See [QA](qa-nextgen-2026-09-26.md).
+- The historical [browser QA session](qa-session-2026-09-14.md) separately completed official Web SDK Test Store cancellation, failure, valid purchase, access refresh and reload. Its successful purchase enabled a third project and was corroborated in the RevenueCat sandbox dashboard. These browser outcomes are not described as native tests.
+- No physical-device test, real-money transaction or public app-store release has been performed. The final native run did not exercise the SDK's failed-purchase option; pending/failure handling remains covered by the automated cases and the separate browser record.
 
 ## Dependencies
 
@@ -67,6 +69,8 @@ EXPO_PUBLIC_REVENUECAT_TEST_STORE_KEY=
 
 Restart Metro after environment changes. Test modes also require `__DEV__ === true`; they fail closed in release builds. A Test Store key is rejected in production mode, including if accidentally assigned to a platform variable. Each release must use its own public platform key.
 
+For the Android judging APK, use the documented `standaloneDebug` recipe: Android remains `debuggable=true` and JavaScript remains in development mode, while the native host disables Metro specifically for that variant. RevenueCat rejects Test Store keys in non-debuggable APKs. No dangerous SDK setting is used. The Expo bootstrap adapter skips only the development-tools socket for an embedded Test Store bundle; it does not alter purchase logic. See [Android build](android-build.md).
+
 For a Galaxy development purchase, choose `galaxy-test`, the `galaxy` Android store, and the real Galaxy public SDK key. Switch to `production` for Galaxy beta or store distribution. Test purchase authorization should still use a licensed tester; ordinary beta users can incur charges. [Samsung beta testing](https://developer.samsung.com/galaxy-store/launch.html).
 
 ## Dashboard configuration
@@ -89,16 +93,20 @@ Show **Test purchase · no real charge** whenever `sandbox` is true. This path t
 
 Web sandbox uses a randomly generated RevenueCat anonymous customer ID retained in `localStorage` under `benchkeep.revenuecat.sandboxUserId.v1`. It contains no premium flag. The web Restore action refreshes that customer's server record; it does **not** restore native store purchases or transfer identity between devices. Clearing browser storage loses this sandbox identity. Native restore uses the actual store SDK API.
 
-## Evidence to collect next
+## Native evidence and remaining checks
 
-Run a native development build and record the same app version throughout:
+The 26 September final APK used source commit `227b2d75db31613107042ace40729b4b4ec4372c` and APK SHA-256 `9F16E220BAC060F7235774B49C6F84F0462E96EB3B2B44BFFC897C33D8985A5B`.
 
-1. Free user: two active projects allowed, third shows purchase panel.
-2. `getOfferings` returns the actual Lifetime product and store price.
-3. Cancel: remains free; returns to the project unchanged.
-4. Successful Test Store purchase: RevenueCat sandbox record and active `benchkeep_plus`; app allows the third project.
-5. Restart / restore using the same store account: access follows RevenueCat, not local storage.
-6. Failure / pending response: access stays locked; existing work survives.
+| Check | Observed scope |
+|---|---|
+| Cold start without Metro | Passed on Android 16 emulator. |
+| Product/price loading | Native SDK supplied the $4.99 sandbox Full bench product. |
+| Cancellation | SDK modal cancelled; the unlock action remained available and access stayed locked. |
+| Valid sandbox purchase | SDK's valid Test Store outcome produced Full bench unlocked. |
+| Restore action and restart | Full bench remained unlocked in the same sandbox installation. |
+| Reading saved work offline | Photo, point and next move survived force-stop/restart with network disabled; the expected RevenueCat network failure did not block reading. |
+| Third-piece capacity, pending/failed response handling | Automated controller/model cases; browser evidence is described separately. Not replayed as part of the final native purchase run. |
+| Production store and physical device | Not tested; no live billing or store-signed restoration claimed. |
 
 **Test Store is a simulated purchase environment backed by real RevenueCat sandbox records. It is not a real-money sale or public store release.** RevenueCat requires replacing Test Store keys before submitting to a store. [Test Store documentation](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store).
 
@@ -113,4 +121,4 @@ npx tsx --test src/purchases/purchases.test.ts
 npx tsc --noEmit
 ```
 
-The test fixture price and entitlement responses exist only in `purchases.test.ts`; production never imports this file. The tests cover unsupported runtime, missing/secret/misplaced keys, release isolation, entitlement name/activity/signature failure, cancellation, pending approval, restore, offline refresh, missing product and concurrent clicks. Native SDK calls still need the device evidence above.
+The test fixture price and entitlement responses exist only in `purchases.test.ts`; production never imports this file. The tests cover unsupported runtime, missing/secret/misplaced keys, release isolation, entitlement name/activity/signature failure, cancellation, pending approval, restore, offline refresh, missing product and concurrent clicks. The native SDK observations above are separate from those test doubles and remain sandbox-only.
